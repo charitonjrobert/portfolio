@@ -1,3 +1,12 @@
+## Kurzfassung (Deutsch)
+
+End-to-End-Tests für die Anwendung in [`../sportsbet-scanner`](../sportsbet-scanner).
+Die Suite startet die echte Anwendung auf einem freien Port mit frischer Datenbank, prüft
+API und Oberfläche und beendet sie danach. Keine Mocks des Backends.
+
+Gemessen: 6 Tests grün in 2,8 s (Chromium headless). Ein echter Startfehler wurde gefunden:
+Die Anwendung brach ohne `config.json` ab.
+
 # e2e-tests
 
 End-to-end tests for the app in [`../sportsbet-scanner`](../sportsbet-scanner).

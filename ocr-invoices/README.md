@@ -1,3 +1,13 @@
+## Kurzfassung (Deutsch)
+
+Liest Rechnungen aus PDF, JPG oder PNG, extrahiert Lieferant, Datum, Rechnungsnummer, Netto,
+MwSt, Brutto und Währung und speichert sie in SQLite. Fehlende Felder bleiben leer — das
+Werkzeug rät nicht. Bedienung per Kommandozeile und per lokalem Dashboard (Hochladen,
+Korrektur per Klick, CSV-Export, OCR-Optionen).
+
+Gemessen: 21 von 21 Feldern auf drei synthetischen Rechnungen, 13 Tests grün.
+Grenzen: keine Schräglagen-Korrektur, keine Positionstabellen, kein DATEV-Export.
+
 # ocr-invoices
 
 Read invoices from PDF/JPG/PNG, extract the usual fields, store them in SQLite, export CSV.

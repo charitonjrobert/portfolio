@@ -1,132 +1,161 @@
-> **Portfolio copy.** Sanitised for public reading: API keys, access key, database and caches
-> removed. Runs locally with `backend/config.example.json`; put real keys in `backend/config.json`
-> to fetch live odds. This is not the deployed instance.
+> **Portfolio-Kopie.** Für die Veröffentlichung bereinigt: API-Schlüssel, Zugangsschlüssel,
+> Datenbank und Caches entfernt. Läuft lokal mit `backend/config.example.json`; echte Schlüssel
+> gehören in `backend/config.json`, um Live-Quoten zu laden. Dies ist nicht die produktive Instanz.
 
 # SportsBet Value Scanner
 
-Scanner de cote care compară bookmakers în timp real și semnalează **value bets** și **arbitraj** pentru fotbal, tenis, baschet și darts.
+Quoten-Scanner, der Buchmacher vergleicht und **Value Bets** sowie **Arbitrage** für Fußball,
+Tennis, Basketball und Darts markiert.
 
-> **Avertisment:** niciun sistem nu garantează profit. Pariurile implică risc de pierdere. Acest tool doar îți maximizează șansele prin compararea cotei și gestionarea bankroll-ului.
+> **Hinweis:** Kein System garantiert Gewinn. Wetten bergen Verlustrisiken. Dieses Werkzeug
+> verbessert nur die Chancen durch Quotenvergleich und Bankroll-Management.
 
-## Screenshots (German UI)
+## Screenshots (deutsche Oberfläche)
 
 | Start | Meine Wetten | Spiele |
 |---|---|---|
 | ![Start](../docs/screens/03-sportsbet-home-de.png) | ![Wallet](../docs/screens/04-sportsbet-wallet-de.png) | ![Spiele](../docs/screens/05-sportsbet-matches-de.png) |
 
-## Funcționalități
+## Funktionen
 
-- Fetch cote live/pre-match de la mai multe bookmakers prin [the-odds-api.com](https://the-odds-api.com)
-- Normalizare cote → probabilități corecte (eliminare marjă)
-- Model predictiv Poisson (fotbal) + normalizare pentru restul sporturilor
-- **Motor de context**: analizează știri despre echipe/jucători (accidentări, suspendări, reveniri, evenimente) via Google News + Bing News/Web (lineup-uri, gossip de pe site-uri mai puțin populare) și ajustează probabilitățile
-- **Chat AI (DeepSeek/Ollama)**: dialog în dashboard care poate căuta și acționa pe datele aplicației (value bets, arbitraj, context echipe, istoric H2H, refresh, statistici) prin tool calls — persona Miki, interzis să inventeze scoruri/medii/statistici, orice cifră vine dintr-un tool verificat
-- **Analiză istorică H2H**: frecvența scorurilor, pattern-uri repetate (același scor în meciuri repetate), medii de goluri și lambdas Poisson din istoric real (încărcat ca CSV) — integrare conservatoare (min. 6 meciuri + amestec cu probabilitatea casei)
-- **Impact jucători**: clasifică știrile pe categorii — accidentați (cu prioritate și pondere mai mare), suspendări/cartonage roșii, jucători pe bancă, transferuri in/out, reveniri — și extrage numele jucătorilor din știri
-- **Analyze match în 3 pași** (tool `analyze_match_deep`): meci+cote → context/impact echipe → jucătorii cu evenimente, apoi concluzie
-- **Ligi din toată lumea**: catalog de 78 de ligi active (fotbal din toate țările, NBA/WNBA, NFL, NHL, MLB, tenis ATP/WTA, MMA, box, cricket, rugby, golf) — oricare ligă se aduce on-demand în chat prin tool-ul `fetch_league` (consumă 1-5 requesturi)
-- **API-Football (plan gratuit, 100 req/zi)**: cheie de la **https://dashboard.api-football.com/register** (înregistrare gratuită, fără card) pusă în `config.json` → `api_football.api_key`. Deblochează date reale de fotbal din TOATE țările — ligi de seniori, juniori și tineret (U19/U18/U17/U20/U21), inclusiv România. Pe gratuit sunt incluse și **cotele** (pre-match) din această sursă, cu **153 de piețe**: 1X2, șansă dublă, fără egal, BTTS (ambele marcate), pauză/final, par/impar, scor exact, **cornere**, total goluri și **total goluri în prima repriză**. Tool-urile: `football_leagues`, `football_fixtures` (azi/toată lumea), `football_odds` (cote pe piețe), `football_h2h` (istoric real). Limitare plan gratuit: doar meciurile de AZI și sezoanele 2022-2024 (meciurile viitoare și sezoanele curente sunt premium); limită pe minut de la API
-- **Piețe exotice**: `get_market_odds` aduce pe cerere cote pe BTTS (ambele marcate), șansă dublă, fără egal, pauză/final, par/impar (1 request/meci, rămân în cache). Note: cornerele și o piață separată de goluri până la pauză nu există pe sursă (the-odds-api) — AI-ul spune asta onest
-- **Evidențiere câștigător**: AI-ul înconjoară echipa declarată câștigătoare cu `<<Echipa>>` → randată distinct (font, verde, glow animat); la egal ambele echipe
-- **Widget verdict animat**: la finalul analizei, `[VERDICT] {win_pct, side, event}` → thumbs up/down animate cu procente câștig/pierdut care numără la 100%
-- **Cache persistent**: refresh-ul NU mai șterge informația — doar actualizează evenimentele cu același id și păstrează ligile aduse on-demand + piețele exotice; evenimentele duplicate sunt eliminate automat. Piețele de tip `*_lay` (prețuri de lay pe schimburi, ex. Betfair) sunt ascunse din afișare, fiind adesea artefacte fără lichiditate
-- **Scor de încredere** (1–5★) pe fiecare value bet = edge + context care confirmă selecția
-- Detectare value bets (probabilitate model > probabilitate casă)
-- Detectare arbitraj (suma probabilităților < 100%)
-- Bankroll management (Kelly fracționat) + istoric pariuri
-- Dashboard web
+- Live- und Pre-Match-Quoten von mehreren Buchmachern über [the-odds-api.com](https://the-odds-api.com)
+- Quoten-Normalisierung zu fairen Wahrscheinlichkeiten (Margen-Entfernung)
+- Poisson-Modell (Fußball) und Normalisierung für die übrigen Sportarten
+- **Kontext-Engine**: wertet Nachrichten zu Teams und Spielern aus (Verletzungen, Sperren,
+  Rückkehr, Ereignisse) über Google News und Bing News/Web und passt die Wahrscheinlichkeiten an
+- **KI-Chat (DeepSeek/Ollama)**: Dialog im Dashboard, der die Anwendungsdaten über Tool Calls
+  abfragt und bearbeitet (Value Bets, Arbitrage, Team-Kontext, H2H-Historie, Refresh, Statistik).
+  Die Persona „Miki" darf keine Zahlen erfinden — jeder Wert stammt aus einem geprüften Tool
+- **H2H-Analyse**: Häufigkeit von Ergebnissen, wiederkehrende Muster, Tordurchschnitte und
+  Poisson-Lambdas aus echter Historie (als CSV geladen), konservativ integriert
+  (mindestens 6 Spiele plus Beimischung der Buchmacher-Wahrscheinlichkeit)
+- **Spieler-Impact**: klassifiziert Meldungen (verletzt mit höherem Gewicht, Sperren, Bank,
+  Transfers, Rückkehr) und extrahiert Spielernamen
+- **Spielanalyse in drei Schritten** (`analyze_match_deep`): Spiel und Quoten → Team-Kontext →
+  Spieler mit Ereignissen → Fazit
+- **Ligen weltweit**: Katalog mit 78 aktiven Ligen (Fußball aller Länder, NBA/WNBA, NFL, NHL,
+  MLB, ATP/WTA, MMA, Boxen, Cricket, Rugby, Golf); jede Liga on-demand per `fetch_league`
+  (kostet 1–5 Requests)
+- **API-Football (kostenlos, 100 Requests/Tag)**: Schlüssel von
+  https://dashboard.api-football.com/register in `config.json` unter `api_football.api_key`.
+  Liefert echte Fußballdaten aus allen Ländern inklusive 153 Märkten: 1X2, Doppelte Chance,
+  Draw No Bet, BTTS, Halbzeit/Ende, Gerade/Ungerade, exaktes Ergebnis, **Corners**,
+  Tor-Gesamtzahl. Im Free-Tarif nur Spiele von **heute** und Saisons 2022–2024
+- **Exotische Märkte**: `get_market_odds` lädt auf Anfrage BTTS, Doppelte Chance, Draw No Bet,
+  Halbzeit/Ende und Gerade/Ungerade (1 Request pro Spiel, danach im Cache)
+- **Gewinner-Hervorhebung**: das Modell setzt das gewählte Team in `<<Team>>`; die Oberfläche
+  hebt es farbig hervor, bei Unentschieden beide Teams
+- **Animiertes Verdict-Widget**: `[VERDICT] {win_pct, side, event}` zeigt Daumen hoch/runter
+  mit hochzählenden Prozentwerten
+- **Persistenter Cache**: ein Refresh löscht keine Daten, er aktualisiert nur Ereignisse mit
+  derselben ID; on-demand geladene Ligen und exotische Märkte bleiben erhalten, Duplikate
+  werden entfernt. `*_lay`-Märkte (Lay-Preise von Börsen wie Betfair) werden ausgeblendet
+- **Vertrauens-Score** (1–5★) pro Value Bet aus Edge und bestätigendem Kontext
+- Value-Bet-Erkennung (Modellwahrscheinlichkeit > Buchmacherwahrscheinlichkeit)
+- Arbitrage-Erkennung (Summe der Wahrscheinlichkeiten < 100 %)
+- Bankroll-Management (fraktionales Kelly) und Wett-Historie
+- Web-Dashboard
 
-## Instalare
+## Installation
 
 ```bash
-cd C:\Users\eusun\sportsbet-app
-pip install -r requirements.txt
+git clone https://github.com/charitonjrobert/portfolio.git
+cd portfolio/sportsbet-scanner
+python -m venv .venv
+.venv/Scripts/python -m pip install -r requirements.txt
 ```
 
-Pune cheia API în `backend/config.json` la `api_key`.
+API-Schlüssel in `backend/config.json` unter `api_key` eintragen (Vorlage:
+`backend/config.example.json`).
 
-## Pornire
+## Start
 
 ```bash
 cd backend
 python -m uvicorn main:app --host 127.0.0.1 --port 8000
 ```
 
-Sau dublează click pe `start.bat`.
+Danach **http://127.0.0.1:8000** im Browser öffnen. Ohne Schlüssel startet die Anwendung mit
+der Beispielkonfiguration und liefert leere Quoten — sie stürzt nicht ab.
 
-Deschide **http://127.0.0.1:8000** în browser.
+## Bedienung
 
-## Folosire
+1. **Refresh Quoten** — lädt Quoten für Premier League, NBA, Tennis und Darts
+2. Tab **Value Bets** — Spiele, bei denen die Modellwahrscheinlichkeit über der
+   Buchmacherwahrscheinlichkeit liegt (positiver Edge)
+3. Tab **Arbitrage** — Kombinationen mit rechnerisch sicherem Gewinn, inklusive proportionaler
+   Einsätze
+4. Tab **Meine Wetten** — Einsatz erfassen (Kelly-Vorschlag), Ergebnis markieren
 
-1. Click **Refresh cote** — descarcă cotele pentru EPL, NBA, tenis și darts
-2. Tab **Value Bets** — unde modelul consideră că probabilitatea reală e mai mare decât cota casei (edge pozitiv)
-3. Tab **Arbitraj** — combinații de pariuri cu profit garantat (trebuie jucate la casele indicate, cu mizele proporționale afișate)
-4. Tab **Pariurile mele** — înregistrează miza (stake-ul sugerat se calculează cu Kelly) și marchează rezultatul
+## Konfiguration (`backend/config.json`)
 
-## Configurare (`backend/config.json`)
-
-| Câmp | Descriere |
+| Feld | Bedeutung |
 |------|-----------|
-| `api_key` | Cheia de la the-odds-api |
-| `regions` | Regiunea cotelor (`eu`, `uk`, `us`) |
-| `markets` | Piețele (`h2h` = 1X2/winner, `totals` = peste/sub) |
-| `sports_groups` | Sporturile monitorizate |
-| `preferred_sports` | Ligile preferate per sport |
-| `value_threshold_pct` | Pragul minim de edge (%) pentru value bet |
-| `kelly_fraction` | Fracțiunea din Kelly pentru mize (25% = conservator) |
+| `api_key` | Schlüssel von the-odds-api |
+| `regions` | Quoten-Region (`eu`, `uk`, `us`) |
+| `markets` | Märkte (`h2h` = 1X2/Sieger, `totals` = Über/Unter) |
+| `sports_groups` | Beobachtete Sportarten |
+| `preferred_sports` | Bevorzugte Ligen je Sportart |
+| `value_threshold_pct` | Mindest-Edge in Prozent für ein Value Bet |
+| `kelly_fraction` | Kelly-Anteil für Einsätze (25 % = konservativ) |
 
-### Auto-refresh (`auto_refresh`)
+### Auto-Refresh (`auto_refresh`)
 
-| Câmp | Descriere |
+| Feld | Bedeutung |
 |------|-----------|
-| `enabled` | Refresh automat în fundal (fără să apeși butonul) |
-| `interval_hours` | La câte ore se reîmprospătează cotele (6h = 12 req/zi ≈ 180/lună) |
-| `refresh_on_startup` | Refresh la pornire dacă nu există cache |
+| `enabled` | Automatischer Refresh im Hintergrund |
+| `interval_hours` | Abstand in Stunden (6 h = 12 Requests/Tag, ca. 180/Monat) |
+| `refresh_on_startup` | Refresh beim Start, wenn kein Cache existiert |
 
-Statusul (ultima/următoarea refresh, request-uri rămase, refresh-uri estimate) apare în dashboard; toggle-ul Auto ON/OFF e lângă butonul Refresh. Fiecare refresh complet = 1 request per sport activ.
+Status (letzter/nächster Refresh, verbleibende Requests) steht im Dashboard; der Schalter
+sitzt neben dem Refresh-Button. Ein vollständiger Refresh kostet 1 Request pro aktiver Sportart.
 
-### Chat AI (`chat`)
+### KI-Chat (`chat`)
 
-| Câmp | Descriere |
+| Feld | Bedeutung |
 |------|-----------|
-| `api_key` | Cheie opțională (dacă nu folosești providerii din opencode) |
-| `base_url` | Endpoint-ul API (opțional, doar cu `api_key`) |
-| `model` | Modelul (opțional, doar cu `api_key`) |
-| `max_iterations` | Numărul maxim de tool calls per conversație |
-| `persona` | Personalitatea AI: `microbist` (Miki, microbist + analist) sau implicit |
+| `api_key` | Optionaler Schlüssel, falls keine Provider aus der opencode-Konfiguration genutzt werden |
+| `base_url` | API-Endpunkt (optional, nur mit `api_key`) |
+| `model` | Modellname (optional, nur mit `api_key`) |
+| `max_iterations` | Maximale Tool Calls pro Konversation |
+| `persona` | Personality: `microbist` (Miki) oder Standard |
 
-**Provideri automat:** dacă `api_key` e goală, aplicația citește singură config-ul opencode (`~/.config/opencode/opencode.json`) și folosește providerii compatibili OpenAI de acolo (ex. DeepSeek cu cheia din `deepseek-key`, Ollama local). Cei cu cheie au prioritate; dacă un provider pică, trece automat la următorul.
+**Automatische Provider:** Ist `api_key` leer, liest die Anwendung die lokale
+opencode-Konfiguration (`~/.config/opencode/opencode.json`) und nutzt dort hinterlegte,
+OpenAI-kompatible Provider (zum Beispiel DeepSeek oder lokales Ollama). Provider mit eigenem
+Schlüssel haben Vorrang; fällt einer aus, wird der nächste verwendet. In diesem Repository
+liegen keine Schlüssel.
 
-Chat-ul din tab-ul **Chat AI** poate: enumera value bets, arăta arbitraj, verifica contextul unei echipe, da statistici bankroll și reîmprospăta cotele — totul prin funcții reale din aplicație.
+### Kontext (`context`)
 
-### Context (`context`)
-
-| Câmp | Descriere |
+| Feld | Bedeutung |
 |------|-----------|
-| `enabled` | Activează/dezactivează analiza de context |
-| `news_hl` | Limba știrilor (`en`, `de`, `ro`) |
-| `news_cache_hours` | Cât timp rămân știrile în cache (evită refetch) |
-| `news_lookups_per_scan` | Câte echipe sunt verificate per scan (max. 8) |
-| `news_weight` | Cât de mult influențează știrile probabilitatea (0.10 = 10%) |
-| `borderline_window_pct` | Intervalul de edge sub prag unde contextul decide |
+| `enabled` | Kontextanalyse ein-/ausschalten |
+| `news_hl` | Sprache der Meldungen (`en`, `de`, `ro`) |
+| `news_cache_hours` | Cache-Dauer der Meldungen |
+| `news_lookups_per_scan` | Teams pro Scan (maximal 8) |
+| `news_weight` | Gewicht der Meldungen auf die Wahrscheinlichkeit (0.10 = 10 %) |
+| `borderline_window_pct` | Edge-Bereich unter der Schwelle, in dem der Kontext entscheidet |
 
 ## API
 
-| Endpoint | Descriere |
+| Endpoint | Bedeutung |
 |----------|-----------|
-| `GET /api/refresh` | Reîmprospătează cotele (consumă 1 request/sport) |
-| `GET /api/refresh/status` | Status auto-refresh: ultima/următoarea, request-uri rămase, estimare |
-| `POST /api/refresh/auto` | Activează/dezactivează auto-refresh (`{"enabled": true}`) |
-| `GET /api/odds` | Cotele din cache |
-| `GET /api/value-bets` | Value bets detectate (cu context și încredere) |
-| `GET /api/context?team=X` | Contextul (știri, scor) pentru o echipă |
-| `GET /api/arbitrage` | Oportunități de arbitraj |
-| `GET /api/bets` | Istoric pariuri |
-| `POST /api/bets` | Adaugă pariu |
-| `POST /api/bets/{id}/settle?won=true` | Soldează pariul |
-| `GET /api/stats` | Statistici bankroll |
-| `POST /api/chat` | Dialog cu AI (body: `{"messages": [...]}`), răspunde cu `reply` + `tools_used` |
+| `GET /api/refresh` | Quoten neu laden (1 Request pro Sportart) |
+| `GET /api/refresh/status` | Status des Auto-Refresh |
+| `POST /api/refresh/auto` | Auto-Refresh schalten (`{"enabled": true}`) |
+| `GET /api/odds` | Quoten aus dem Cache |
+| `GET /api/value-bets` | Erkannte Value Bets mit Kontext und Vertrauen |
+| `GET /api/context?team=X` | Kontext (Meldungen, Score) für ein Team |
+| `GET /api/arbitrage` | Arbitrage-Möglichkeiten |
+| `GET /api/bets` | Wett-Historie |
+| `POST /api/bets` | Wette anlegen |
+| `POST /api/bets/{id}/settle?won=true` | Wette abrechnen |
+| `GET /api/stats` | Bankroll-Statistik |
+| `POST /api/chat` | Dialog mit der KI (`{"messages": [...]}`), Antwort mit `reply` und `tools_used` |
 
-## Note despre limita gratuită
+## Hinweis zum Free-Tarif
 
-Tier-ul gratuit oferă **500 request-uri/lună**. Fiecare `Refresh cote` consumă **1 request per sport** (4 la refresh complet). O scanare pe zi = ~120/lună, deci e suficient. Cotele rămân în cache (offline) până la următorul refresh.
+Der kostenlose Tarif umfasst **500 Requests pro Monat**. Ein vollständiger Refresh kostet
+**1 Request pro Sportart** (4 bei allen Sportarten). Ein Scan pro Tag liegt bei etwa 120 pro
+Monat. Quoten bleiben im Cache und sind offline verfügbar, bis der nächste Refresh läuft.
