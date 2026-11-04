@@ -33,3 +33,5 @@ ocr-invoices/data/*
 !ocr-invoices/data/.gitkeep
 e2e-tests/test-results/
 ocr-invoices/docs/*.tmp
+
+reportofon/
