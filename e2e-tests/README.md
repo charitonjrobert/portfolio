@@ -4,10 +4,12 @@ End-to-End-Tests für die Anwendung in [`../sportsbet-scanner`](../sportsbet-sca
 Die Suite startet die echte Anwendung auf einem freien Port mit frischer Datenbank, prüft
 API und Oberfläche und beendet sie danach. Keine Mocks des Backends.
 
-Gemessen: 6 Tests grün in 2,8 s (Chromium headless). Ein echter Startfehler wurde gefunden:
+Gemessen: 7 Tests grün in 2,8 s (Chromium headless). Ein echter Startfehler wurde gefunden:
 Die Anwendung brach ohne `config.json` ab.
 
 # e2e-tests
+
+[![e2e](https://github.com/charitonjrobert/portfolio/actions/workflows/e2e.yml/badge.svg)](https://github.com/charitonjrobert/portfolio/actions/workflows/e2e.yml)
 
 End-to-end tests for the app in [`../sportsbet-scanner`](../sportsbet-scanner).
 Not a tutorial on a demo site: these tests drive my own product, with its own database,
@@ -15,7 +17,7 @@ and they caught one real startup bug (see below).
 
 ## Result
 
-**6 tests, all passing, 2.8 s** (Chromium headless, Windows 11, Python 3.11).
+**7 tests, all passing, 2.8 s** (Chromium headless, Windows 11, Python 3.11).
 
 | Test | What it protects |
 |---|---|

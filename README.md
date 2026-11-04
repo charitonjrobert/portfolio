@@ -1,5 +1,7 @@
 # Portfolio — Johannes Robert Chariton
 
+[![e2e](https://github.com/charitonjrobert/portfolio/actions/workflows/e2e.yml/badge.svg)](https://github.com/charitonjrobert/portfolio/actions/workflows/e2e.yml)
+
 Junior IT — Support, QA und Automatisierung. Kirchseeon (München Ost), Deutschland.
 
 Drei kleine, fertige Werkzeuge. Keine Tutorials: jedes löst ein konkretes Problem, läuft unter
@@ -25,7 +27,7 @@ Windows und nennt sein gemessenes Ergebnis sowie seine Grenzen.
   (7 Felder × 3 Dokumente). Fehlende Felder bleiben leer, das Werkzeug rät nie. 13 Tests grün.
 - **sportsbet-scanner**: startet lokal mit `config.example.json` ohne Schlüssel; Value-Bet- und
   Arbitrage-Logik durch Modultests abgedeckt.
-- **e2e-tests**: 6 Tests grün in 2,8 s gegen die echte Anwendung, frische Datenbank, echtes HTTP.
+- **e2e-tests**: 7 Tests grün in 2,8 s gegen die echte Anwendung, frische Datenbank, echtes HTTP.
   Ein echter Startfehler wurde dabei gefunden und behoben.
 
 ## Nachgewiesene Fähigkeiten (nicht behauptet)
@@ -56,7 +58,7 @@ set PYTHONPATH=src
 # sportsbet-scanner
 cd sportsbet-scanner
 python -m pip install -r requirements.txt
-python -m uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8010
+python -m uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8000
 
 # e2e-tests
 cd e2e-tests
