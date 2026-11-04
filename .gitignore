@@ -27,3 +27,6 @@ media/
 out_*.json
 
 vendor/
+test-results/
+playwright-report/
+.git-credentials
