@@ -1,0 +1,29 @@
+# Reconciling secrets with the portfolio
+# Never commit keys, cookies, databases or logs.
+*.key
+*.pem
+.env
+.env.*
+!.env.example
+config.json
+*_cookies.json
+storage_state.json
+*.db
+*.sqlite
+*.log
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+dist/
+build/
+*.exe
+*.zip
+*.7z
+data/*
+!data/.gitkeep
+media/
+out_*.json
+
+vendor/

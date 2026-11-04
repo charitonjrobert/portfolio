@@ -1,0 +1,29 @@
+[
+  {
+    "file": "rechnung_001.pdf",
+    "vendor": "Nordlicht Elektronik GmbH",
+    "invoice_no": "RE-2026-0441",
+    "invoice_date": "14.10.2026",
+    "net": 1240.0,
+    "vat": 235.6,
+    "gross": 1475.6
+  },
+  {
+    "file": "rechnung_002.pdf",
+    "vendor": "Alpenblick Kaffeerösterei KG",
+    "invoice_no": "2026/0873",
+    "invoice_date": "02.10.2026",
+    "net": 385.5,
+    "vat": 73.25,
+    "gross": 458.75
+  },
+  {
+    "file": "rechnung_003.pdf",
+    "vendor": "Büroservice Leuchtturm",
+    "invoice_no": "BL-77310",
+    "invoice_date": "28.10.2026",
+    "net": 96.0,
+    "vat": 18.24,
+    "gross": 114.24
+  }
+]

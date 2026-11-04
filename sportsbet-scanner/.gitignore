@@ -1,0 +1,17 @@
+config.json
+config.json.bak-*
+*.db
+*.sqlite
+*.log
+__pycache__/
+*.pyc
+.venv/
+venv/
+tools/*.exe
+tools/*.zip
+backups/
+screenshots/
+odds_cache.json*
+context_cache.json*
+limits_state.json
+reports.json

@@ -1,0 +1,385 @@
+{
+  "ts": 1792945205.7040079,
+  "catalog": [
+    {
+      "key": "americanfootball_cfl",
+      "title": "CFL",
+      "group": "americanfootball"
+    },
+    {
+      "key": "americanfootball_ncaaf",
+      "title": "NCAAF",
+      "group": "americanfootball"
+    },
+    {
+      "key": "americanfootball_ncaaf_championship_winner",
+      "title": "NCAAF Championship Winner",
+      "group": "americanfootball"
+    },
+    {
+      "key": "americanfootball_nfl",
+      "title": "NFL",
+      "group": "americanfootball"
+    },
+    {
+      "key": "americanfootball_nfl_super_bowl_winner",
+      "title": "NFL Super Bowl Winner",
+      "group": "americanfootball"
+    },
+    {
+      "key": "baseball_kbo",
+      "title": "KBO",
+      "group": "baseball"
+    },
+    {
+      "key": "baseball_mlb",
+      "title": "MLB",
+      "group": "baseball"
+    },
+    {
+      "key": "baseball_mlb_world_series_winner",
+      "title": "MLB World Series Winner",
+      "group": "baseball"
+    },
+    {
+      "key": "basketball_euroleague",
+      "title": "Basketball Euroleague",
+      "group": "basketball"
+    },
+    {
+      "key": "basketball_nba",
+      "title": "NBA",
+      "group": "basketball"
+    },
+    {
+      "key": "basketball_nba_championship_winner",
+      "title": "NBA Championship Winner",
+      "group": "basketball"
+    },
+    {
+      "key": "basketball_ncaab",
+      "title": "NCAAB",
+      "group": "basketball"
+    },
+    {
+      "key": "basketball_ncaab_championship_winner",
+      "title": "NCAAB Championship Winner",
+      "group": "basketball"
+    },
+    {
+      "key": "basketball_wnba",
+      "title": "WNBA",
+      "group": "basketball"
+    },
+    {
+      "key": "boxing_boxing",
+      "title": "Boxing",
+      "group": "boxing"
+    },
+    {
+      "key": "cricket_international_t20",
+      "title": "International Twenty20",
+      "group": "cricket"
+    },
+    {
+      "key": "cricket_odi",
+      "title": "One Day Internationals",
+      "group": "cricket"
+    },
+    {
+      "key": "cricket_test_match",
+      "title": "Test Matches",
+      "group": "cricket"
+    },
+    {
+      "key": "golf_masters_tournament_winner",
+      "title": "Masters Tournament Winner",
+      "group": "golf"
+    },
+    {
+      "key": "golf_pga_championship_winner",
+      "title": "PGA Championship Winner",
+      "group": "golf"
+    },
+    {
+      "key": "golf_the_open_championship_winner",
+      "title": "The Open Winner",
+      "group": "golf"
+    },
+    {
+      "key": "golf_us_open_winner",
+      "title": "US Open Winner",
+      "group": "golf"
+    },
+    {
+      "key": "icehockey_ahl",
+      "title": "AHL",
+      "group": "icehockey"
+    },
+    {
+      "key": "icehockey_liiga",
+      "title": "Liiga",
+      "group": "icehockey"
+    },
+    {
+      "key": "icehockey_nhl",
+      "title": "NHL",
+      "group": "icehockey"
+    },
+    {
+      "key": "icehockey_nhl_championship_winner",
+      "title": "NHL Championship Winner",
+      "group": "icehockey"
+    },
+    {
+      "key": "icehockey_sweden_hockey_league",
+      "title": "SHL",
+      "group": "icehockey"
+    },
+    {
+      "key": "mma_mixed_martial_arts",
+      "title": "MMA",
+      "group": "mma"
+    },
+    {
+      "key": "politics_us_presidential_election_winner",
+      "title": "US Presidential Elections Winner",
+      "group": "politics"
+    },
+    {
+      "key": "soccer_argentina_primera_division",
+      "title": "Primera División - Argentina",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_australia_aleague",
+      "title": "A-League",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_austria_bundesliga",
+      "title": "Austrian Football Bundesliga",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_belgium_first_div",
+      "title": "Belgium First Div",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_brazil_campeonato",
+      "title": "Brazil Série A",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_brazil_serie_b",
+      "title": "Brazil Série B",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_chile_campeonato",
+      "title": "Primera División - Chile",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_conmebol_copa_libertadores",
+      "title": "Copa Libertadores",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_conmebol_copa_sudamericana",
+      "title": "Copa Sudamericana",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_denmark_superliga",
+      "title": "Denmark Superliga",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_efl_champ",
+      "title": "Championship",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_england_efl_cup",
+      "title": "EFL Cup",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_england_league1",
+      "title": "League 1",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_england_league2",
+      "title": "League 2",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_epl",
+      "title": "EPL",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_finland_veikkausliiga",
+      "title": "Veikkausliiga - Finland",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_france_ligue_one",
+      "title": "Ligue 1 - France",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_france_ligue_two",
+      "title": "Ligue 2 - France",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_germany_bundesliga",
+      "title": "Bundesliga - Germany",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_germany_bundesliga2",
+      "title": "Bundesliga 2 - Germany",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_germany_bundesliga_women",
+      "title": "Frauen-Bundesliga",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_germany_dfb_pokal",
+      "title": "DFB-Pokal",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_germany_liga3",
+      "title": "3. Liga - Germany",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_greece_super_league",
+      "title": "Super League - Greece",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_italy_serie_a",
+      "title": "Serie A - Italy",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_italy_serie_b",
+      "title": "Serie B - Italy",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_japan_j_league",
+      "title": "J League",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_league_of_ireland",
+      "title": "League of Ireland",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_mexico_ligamx",
+      "title": "Liga MX",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_netherlands_eredivisie",
+      "title": "Dutch Eredivisie",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_norway_eliteserien",
+      "title": "Eliteserien - Norway",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_poland_ekstraklasa",
+      "title": "Ekstraklasa - Poland",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_portugal_primeira_liga",
+      "title": "Primeira Liga - Portugal",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_russia_premier_league",
+      "title": "Premier League - Russia",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_saudi_arabia_pro_league",
+      "title": "Saudi Pro League",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_spain_la_liga",
+      "title": "La Liga - Spain",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_spain_segunda_division",
+      "title": "La Liga 2 - Spain",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_spl",
+      "title": "Premiership - Scotland",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_sweden_allsvenskan",
+      "title": "Allsvenskan - Sweden",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_sweden_superettan",
+      "title": "Superettan - Sweden",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_switzerland_superleague",
+      "title": "Swiss Superleague",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_turkey_super_league",
+      "title": "Turkey Super League",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_uefa_champs_league",
+      "title": "UEFA Champions League",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_uefa_champs_league_women",
+      "title": "UEFA Champions League Women",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_uefa_europa_league",
+      "title": "UEFA Europa League",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_uefa_nations_league",
+      "title": "UEFA Nations League",
+      "group": "soccer"
+    },
+    {
+      "key": "soccer_usa_mls",
+      "title": "MLS",
+      "group": "soccer"
+    }
+  ]
+}

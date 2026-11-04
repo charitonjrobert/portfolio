@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#1a1220">
+  <meta name="color-scheme" content="dark light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MicrobistBets">
+  <meta name="format-detection" content="telephone=no">
+  <title>MicrobistBets</title>
+  <link rel="manifest" href="/assets/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/assets/icon-180.png">
+  <link rel="icon" href="/assets/icon-192.png">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" data-tip="tip.brand">
+      <span class="brand-emoji">🎲</span>
+      <span class="brand-text">
+        <b>MicrobistBets</b>
+        <small data-i18n="app.tagline"></small>
+      </span>
+    </div>
+    <div class="top-actions">
+      <div class="lang-wrap">
+        <button id="langBtn" class="pill" data-tip="tip.lang" aria-haspopup="true">🌐 <span id="langLabel">RO</span></button>
+        <div id="langMenu" class="menu hidden">
+          <button data-lang="ro">🇷🇴 Română</button>
+          <button data-lang="de">🇩🇪 Deutsch</button>
+          <button data-lang="en">🇬🇧 English</button>
+        </div>
+      </div>
+      <button id="themeBtn" class="pill" data-tip="tip.theme">🌙</button>
+      <button id="limitsPill" class="pill limits" data-tip="tip.limits">
+        <span id="limitsDot">⚪</span> <span id="limitsShort" data-i18n="limits.short">Limite</span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="home" data-tip="tip.tabHome">🏠 <span data-i18n="nav.home"></span></button>
+    <button class="tab" data-tab="matches" data-tip="tip.tabMatches">📅 <span data-i18n="nav.matches"></span></button>
+    <button class="tab" data-tab="mine" data-tip="tip.tabMine">💰 <span data-i18n="nav.mine"></span></button>
+    <button class="tab" data-tab="assistant" data-tip="tip.tabAssistant">💬 <span data-i18n="nav.assistant"></span></button>
+  </nav>
+
+  <main>
+    <div id="cacheBadge" class="cachebadge hidden"></div>
+    <div id="liveBar" class="livebar hidden"></div>
+    <!-- ============================= ACASĂ ============================= -->
+    <section id="tab-home" class="panel active">
+      <div class="card hero">
+        <h2 data-i18n="home.title"></h2>
+        <p class="muted" data-i18n="home.subtitle"></p>
+
+        <div class="searchrow">
+          <input id="homeSearch" type="text" autocomplete="off" data-i18n-ph="home.searchPlaceholder" data-tip="tip.search">
+          <button id="btnAnalyze" class="btn primary" data-tip="tip.analyze" data-i18n="home.analyzeBtn"></button>
+        </div>
+        <div id="homeSuggest" class="suggest hidden"></div>
+
+        <div class="or" data-i18n="home.or"></div>
+
+        <button id="btnRecommend" class="btn recommend" data-tip="tip.recommend">
+          <span class="dice">🎲</span> <span data-i18n="home.recommendBtn"></span>
+        </button>
+        <p class="hint" data-i18n="home.recommendHint"></p>
+      </div>
+
+      <div id="loader" class="card loader hidden">
+        <div class="spinner"></div>
+        <div class="loader-body">
+          <div id="loaderStatus" class="loader-status"></div>
+          <div class="progressbar"><i id="progressFill"></i></div>
+          <div class="loader-steps" id="loaderSteps"></div>
+        </div>
+      </div>
+
+      <div id="result" class="result-area"></div>
+    </section>
+
+    <!-- ============================ MECIURI ============================ -->
+    <section id="tab-matches" class="panel">
+      <div class="card">
+        <h2 data-i18n="matches.title"></h2>
+        <p class="muted" data-i18n="matches.subtitle"></p>
+
+        <div class="datechips" id="dateChips">
+          <button class="chip" data-days="0" data-tip="tip.day0" data-i18n="matches.today"></button>
+          <button class="chip" data-days="1" data-tip="tip.day1" data-i18n="matches.tomorrow"></button>
+          <button class="chip active" data-days="7" data-tip="tip.day7" data-i18n="matches.week"></button>
+          <button class="chip" data-days="all" data-tip="tip.dayAll" data-i18n="matches.all"></button>
+        </div>
+
+        <div class="filters" id="matchFilters">
+          <button class="chip active" data-mfilter="" data-i18n="mfilter.all"></button>
+          <button class="chip" data-mfilter="live" data-i18n="mfilter.live"></button>
+          <button class="chip" data-mfilter="stream" data-i18n="mfilter.stream"></button>
+          <button class="chip" data-mfilter="odds" data-i18n="mfilter.odds"></button>
+          <button class="chip" data-mfilter="upcoming" data-i18n="mfilter.upcoming"></button>
+        </div>
+
+        <div class="searchrow">
+          <input id="matchSearch" type="text" autocomplete="off" data-i18n-ph="matches.searchPlaceholder" data-tip="tip.search">
+          <button id="btnMatches" class="btn" data-tip="tip.loadMatches" data-i18n="matches.btn"></button>
+        </div>
+
+        <div class="sportchips" id="sportChips"></div>
+        <div id="matchesNotes" class="notes"></div>
+      </div>
+      <div id="matchesList" class="matches-list"></div>
+    </section>
+
+    <!-- ========================= PARIURILE MELE ========================= -->
+    <section id="tab-mine" class="panel">
+      <div class="card">
+        <h2>💰 <span data-i18n="wallet.title"></span>
+          <span id="simBadge" class="badge sim hidden" data-tip="tip.simBadge" data-i18n="wallet.simulation"></span>
+        </h2>
+        <p class="muted" data-i18n="wallet.subtitle"></p>
+        <div id="stats" class="stats"></div>
+        <div class="wallet-tools">
+          <div class="wallet-row">
+            <span class="mini" data-i18n="wallet.player"></span>
+            <input id="playerInput" type="text" autocomplete="off" data-tip="tip.player">
+          </div>
+          <div class="wallet-row">
+            <button id="settleBtn" class="btn small" data-tip="tip.checkResults" data-i18n="wallet.checkResults"></button>
+            <button id="resetBtn" class="btn small" data-tip="tip.resetWallet" data-i18n="wallet.reset"></button>
+          </div>
+        </div>
+        <div id="settleInfo" class="mini"></div>
+        <div class="wallet-tools">
+          <div class="mini">⭐ <span data-i18n="live.watchTitle"></span></div>
+          <div id="watchList" class="watchlist"></div>
+        </div>
+      </div>
+      <div id="betsList" class="matches-list"></div>
+    </section>
+
+    <!-- =========================== ASISTENT =========================== -->
+    <section id="tab-assistant" class="panel">
+      <div class="card chat-card">
+        <h2>💬 <span id="assistantName">Miki</span> <span class="badge" data-tip="tip.miki" data-i18n="assistant.badge"></span></h2>
+        <p class="muted" data-i18n="assistant.subtitle"></p>
+        <div id="aiNotice" class="notice hidden"></div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-suggestions" id="chatSuggest"></div>
+        <div class="searchrow">
+          <input id="chatInput" type="text" autocomplete="off" data-i18n-ph="assistant.placeholder" data-tip="tip.chatInput">
+          <button id="chatSend" class="btn primary" data-tip="tip.chatSend" data-i18n="assistant.send"></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- panou limite -->
+  <div id="limitsOverlay" class="overlay hidden">
+    <aside class="drawer" id="limitsDrawer">
+      <div class="drawer-head">
+        <h3 data-i18n="limits.title"></h3>
+        <button id="limitsClose" class="icon-btn" data-tip="tip.close">✕</button>
+      </div>
+      <p class="muted" data-i18n="limits.intro"></p>
+      <div id="limitsBody"></div>
+      <button id="limitsRefresh" class="btn small" data-tip="tip.limitsCheck" data-i18n="limits.check"></button>
+      <button id="refreshOdds" class="btn small" data-tip="tip.refreshOdds" data-i18n="limits.refreshOdds"></button>
+      <div class="cache-tools">
+        <div id="cacheInfo" class="mini"></div>
+        <button id="cacheClear" class="btn small" data-tip="tip.cacheClear" data-i18n="cache.clear"></button>
+      </div>
+      <p class="mini" style="margin-top:12px" data-i18n="limits.footballData"></p>
+    </aside>
+  </div>
+
+  <!-- panou rezumat meci (raport bilet încheiat) -->
+  <div id="reportOverlay" class="overlay hidden">
+    <aside class="drawer report-drawer" id="reportDrawer">
+      <div class="drawer-head">
+        <h3 data-i18n="report.title"></h3>
+        <button id="reportClose" class="icon-btn" data-tip="tip.close">✕</button>
+      </div>
+      <div id="reportBody"><p class="mini" data-i18n="report.loading"></p></div>
+    </aside>
+  </div>
+
+  <!-- panou watch live -->
+  <div id="watchOverlay" class="overlay hidden">
+    <aside class="drawer watch-drawer" id="watchDrawer">
+      <div class="drawer-head">
+        <h3 id="watchTitle">📺</h3>
+        <button id="watchClose" class="icon-btn" data-tip="tip.close">✕</button>
+      </div>
+      <div id="watchBody"></div>
+      <div id="watchPlayerSlot">
+        <div id="watchPlayerWrap" class="watch-player hidden">
+          <video id="watchVideo" class="watch-frame" controls playsinline></video>
+          <div class="watch-controls">
+            <button id="watchMin" class="icon-btn" title="minimize">▁</button>
+            <button id="watchRestart" class="icon-btn" title="restart">↻</button>
+            <button id="watchFull" class="icon-btn" title="fullscreen">⛶</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- mini player (minimizat) -->
+  <div id="watchMini" class="watch-mini hidden">
+    <div class="watch-mini-head">
+      <span id="watchMiniLabel">📺</span>
+      <span>
+        <button id="watchMiniRestore" class="icon-btn" title="restore">↗</button>
+        <button id="watchMiniClose" class="icon-btn" title="close">✕</button>
+      </span>
+    </div>
+  </div>
+
+  <div id="iosBanner" class="iosbanner hidden"></div>  <div id="alertBubble" class="alertbubble" data-tip="tip.alertBubble">
+    <button id="alertToggle" class="alertbtn">
+      🔔 <span id="alertCount" class="alertcount hidden">0</span>
+    </button>
+    <div id="alertPanel" class="alertpanel hidden">
+      <div class="alerthead">
+        <b data-i18n="alerts.title"></b>
+        <span>
+          <button id="alertClear" class="icon-btn" title="clear">🗑</button>
+          <button id="alertClose" class="icon-btn">✕</button>
+        </span>
+      </div>
+      <div id="alertFeed" class="alertfeed"></div>
+    </div>
+  </div>
+  <div id="tooltip" class="tooltip hidden" role="tooltip"></div>
+  <div id="toast" class="toast hidden"></div>
+
+  <footer class="footer">
+    <span data-i18n="footer.disclaimer"></span>
+  </footer>
+
+  <script src="/assets/hls.min.js"></script>
+  <script src="/assets/app.js"></script>
+</body>
+</html>

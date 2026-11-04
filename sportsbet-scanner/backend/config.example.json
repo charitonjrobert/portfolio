@@ -1,0 +1,129 @@
+{
+  "api_key": "",
+  "regions": [
+    "eu"
+  ],
+  "markets": [
+    "h2h",
+    "totals"
+  ],
+  "sports_groups": [
+    "soccer",
+    "tennis",
+    "basketball",
+    "icehockey"
+  ],
+  "preferred_sports": {
+    "soccer": [
+      "soccer_epl",
+      "soccer_spain_la_liga",
+      "soccer_italy_serie_a",
+      "soccer_germany_bundesliga",
+      "soccer_germany_bundesliga2",
+      "soccer_germany_dfb_pokal",
+      "soccer_germany_liga3",
+      "soccer_france_ligue_one",
+      "soccer_netherlands_eredivisie",
+      "soccer_portugal_primeira_liga",
+      "soccer_uefa_champs_league",
+      "soccer_uefa_europa_league",
+      "soccer_uefa_europa_conference_league",
+      "soccer_efl_champ"
+    ],
+    "basketball": [
+      "basketball_nba",
+      "basketball_euroleague"
+    ],
+    "icehockey": [
+      "icehockey_nhl"
+    ],
+    "tennis": [
+      "tennis_atp_shanghai_masters",
+      "tennis_wta_wuhan_open"
+    ]
+  },
+  "value_threshold_pct": 2.0,
+  "kelly_fraction": 0.25,
+  "context": {
+    "enabled": true,
+    "news_hl": "en",
+    "news_cache_hours": 12,
+    "news_lookups_per_scan": 20,
+    "news_lookups_per_request": 2,
+    "news_requests_per_minute": 30,
+    "news_weight": 0.25,
+    "borderline_window_pct": 1.0
+  },
+  "chat": {
+    "enabled": true,
+    "api_key": "",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+    "model": "gemini-3.5-flash-lite",
+    "fallback_models": [
+      "gemini-3.5-flash",
+      "gemini-3.8-flash"
+    ],
+    "fallbacks": [
+      {
+        "name": "nvidia-nemotron",
+        "base_url": "https://integrate.api.nvidia.com/v1",
+        "api_key": "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",
+        "model": "nvidia/nemotron-3-super-120b-a12b"
+      }
+    ],
+    "max_iterations": 3,
+    "persona": "microbist"
+  },
+  "auto_refresh": {
+    "enabled": false,
+    "interval_hours": 24,
+    "refresh_on_startup": false,
+    "cache_ttl_hours": 6,
+    "value_scan_minutes": 30
+  },
+  "api_football": {
+    "api_key": "",
+    "base_url": "https://v3.football.api-sports.io",
+    "host": "v3.football.api-sports.io"
+  },
+  "football_data": {
+    "api_key": "",
+    "base_url": "https://api.football-data.org/v4",
+    "days_ahead": 10
+  },
+  "cache": {
+    "fixtures_ttl_min": 30,
+    "analyze_ttl_min": 30,
+    "retention_hours": 48
+  },
+  "wallet": {
+    "demo_balance": 100,
+    "auto_settle_minutes": 30,
+    "max_scores_calls": 4
+  },
+  "results": {
+    "auto_scores": true,
+    "scores_ttl_min": 360,
+    "max_scores_per_day": 12
+  },
+  "live": {
+    "min_interval_s": 60,
+    "polls_per_day": 60
+  },
+  "security": {
+    "requests_per_minute": 150
+  },
+  "ui": {
+    "brand": "MicrobistBets",
+    "assistant": "Miki",
+    "default_lang": "ro",
+    "languages": [
+      "ro",
+      "de",
+      "en"
+    ],
+    "access_key": ""
+  },
+  "cache_file": "odds_cache.json",
+  "db_file": "bets.db"
+}
