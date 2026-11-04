@@ -738,6 +738,7 @@ class BetIn(BaseModel):
     odds: float
     edge_pct: float = 0.0
     sport_group: str = ""
+    player: str = ""
 
 
 @app.post("/api/bets")
@@ -750,6 +751,7 @@ def add_bet(bet: BetIn):
         "edge_pct": bet.edge_pct,
         "sport_group": bet.sport_group or _guess_sport_group(bet.event),
         "status": "open",
+        "player": (bet.player or "").strip() or "client",
     }
     storage.add_bet(rec)
     return {"ok": True, "sport_group": rec["sport_group"]}

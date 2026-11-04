@@ -8,6 +8,12 @@ Scanner de cote care compară bookmakers în timp real și semnalează **value b
 
 > **Avertisment:** niciun sistem nu garantează profit. Pariurile implică risc de pierdere. Acest tool doar îți maximizează șansele prin compararea cotei și gestionarea bankroll-ului.
 
+## Screenshots (German UI)
+
+| Start | Meine Wetten | Spiele |
+|---|---|---|
+| ![Start](../docs/screens/03-sportsbet-home-de.png) | ![Wallet](../docs/screens/04-sportsbet-wallet-de.png) | ![Spiele](../docs/screens/05-sportsbet-matches-de.png) |
+
 ## Funcționalități
 
 - Fetch cote live/pre-match de la mai multe bookmakers prin [the-odds-api.com](https://the-odds-api.com)

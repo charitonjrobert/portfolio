@@ -11,6 +11,14 @@ and states its measured result and its limits.
 | [sportsbet-scanner](sportsbet-scanner/) | Comparing bookmaker odds by hand is slow and error-prone | Backend design, REST integration, caching, business rules | FastAPI, SQLite, vanilla JS |
 | [e2e-tests](e2e-tests/) | Nobody notices when a feature breaks until a user does | Test automation, Page Object, CI | Playwright, pytest |
 
+## Screenshots
+
+| OCR Invoices | MicrobistBets wallet |
+|---|---|
+| ![OCR dashboard](docs/screens/01-ocr-invoices.png) | ![Wallet](docs/screens/04-sportsbet-wallet-de.png) |
+
+![OCR settings](docs/screens/02-ocr-settings.png)
+
 ## Measured results
 
 - **ocr-invoices**: 21/21 fields extracted correctly on 3 synthetic German invoices (7 fields × 3 documents). Missing fields stay empty; the tool never guesses. 13 tests green.

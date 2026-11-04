@@ -43,7 +43,7 @@ class Storage:
             "commence_time TEXT, created TEXT, last_score TEXT, last_minute TEXT)"
         )
         wanted = {
-            "player": "TEXT DEFAULT 'demo'",
+            "player": "TEXT DEFAULT 'client'",
             "event_id": "TEXT",
             "home_team": "TEXT",
             "away_team": "TEXT",
@@ -69,6 +69,8 @@ class Storage:
         for name, decl in wanted.items():
             if name not in cols:
                 conn.execute(f"ALTER TABLE bets ADD COLUMN {name} {decl}")
+        conn.execute("UPDATE bets SET player = 'client' "
+                     "WHERE player IS NULL OR player = 'demo' OR player = ''")
         conn.commit()
         conn.close()
 
@@ -185,8 +187,8 @@ class Storage:
     def add_bet(self, bet):
         conn = sqlite3.connect(self.db_file)
         conn.execute(
-            "INSERT INTO bets (event, outcome, stake, odds, edge_pct, status, profit, sport_group) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO bets (event, outcome, stake, odds, edge_pct, status, profit, sport_group, player) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (
                 bet.get("event", ""),
                 bet.get("outcome", ""),
@@ -196,6 +198,7 @@ class Storage:
                 bet.get("status", "open"),
                 bet.get("profit", 0),
                 bet.get("sport_group", ""),
+                bet.get("player") or "client",
             ),
         )
         conn.commit()
@@ -263,6 +266,9 @@ class Storage:
 
     def _bet_cols(self, conn):
         return [r[1] for r in conn.execute("PRAGMA table_info(bets)").fetchall()]
+
+    # Legacy note: the quick /api/bets endpoint used to write player='demo' while the
+    # dashboard wallet reads 'client'. The migration above unifies them.
 
     def ensure_player(self, name, initial=None):
         name = (name or "demo").strip() or "demo"
