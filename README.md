@@ -9,11 +9,13 @@ and states its measured result and its limits.
 |---|---|---|---|
 | [ocr-invoices](ocr-invoices/) | Invoices arrive as PDFs and get typed by hand | OCR pipeline, data modelling, testing | Python, Tesseract, SQLite |
 | [sportsbet-scanner](sportsbet-scanner/) | Comparing bookmaker odds by hand is slow and error-prone | Backend design, REST integration, caching, business rules | FastAPI, SQLite, vanilla JS |
+| [e2e-tests](e2e-tests/) | Nobody notices when a feature breaks until a user does | Test automation, Page Object, CI | Playwright, pytest |
 
 ## Measured results
 
 - **ocr-invoices**: 21/21 fields extracted correctly on 3 synthetic German invoices (7 fields × 3 documents). Missing fields stay empty; the tool never guesses.
 - **sportsbet-scanner**: runs locally with `config.example.json`, no keys required to start; value-bet and arbitrage logic covered by its module tests.
+- **e2e-tests**: 6 tests green in 2.8 s against the real app, fresh database, real HTTP — found one startup bug.
 
 ## Skills proven (not claimed)
 
@@ -27,6 +29,8 @@ and states its measured result and its limits.
 | Testing (pytest, fixtures, no-binary CI) | `tests/` |
 | Windows tooling, portable dependencies | `vendor/`, no admin installs |
 | Frontend basics (HTML/CSS/JS) | `dashboard/` |
+| Browser automation / E2E testing | e2e-tests `tests/`, `pages/` |
+| CI (GitHub Actions) | e2e-tests `.github/workflows/` |
 
 ## How to run
 
@@ -47,8 +51,8 @@ python -m uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8010
 
 - ocr-invoices: deskew and binarisation before OCR, line-item tables, DATEV export.
 - sportsbet-scanner: split the backend into services, add real unit tests around the value scan.
-- Add a third project: a small Playwright E2E suite with CI — the automation side is not
-  represented here yet, on purpose, until it is finished.
+- Cover the access gate with a second app instance that has a key set.
+- Add a visual regression check (screenshot diff) once the dashboard layout stabilises.
 
 ## Note
 
