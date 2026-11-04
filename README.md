@@ -13,6 +13,11 @@ Windows und nennt sein gemessenes Ergebnis sowie seine Grenzen.
 | [sportsbet-scanner](sportsbet-scanner/) | Quoten von Hand zu vergleichen ist langsam und fehleranfällig | Backend-Design, REST-Integration, Caching, Geschäftslogik | FastAPI, SQLite, Vanilla JS |
 | [e2e-tests](e2e-tests/) | Niemand merkt, wenn ein Feature bricht | Testautomatisierung, Page Object, CI | Playwright, pytest |
 
+Zusätzlich als Produkt gebaut, nicht als Code-Beispiel:
+[**Reportofon**](https://github.com/charitonjrobert/reportofon) — Android-Diktiergerät mit
+Transkription komplett auf dem Gerät (React Native, Whisper, C++/NDK). Dort stehen Screenshots
+und eine installierbare Release-APK; der Quellcode bleibt privat (GPL-Komponente).
+
 ## Screenshots
 
 | OCR Invoices | MicrobistBets — Demo-Wallet |
@@ -86,7 +91,10 @@ und geprüft. Keine Kundendaten, keine API-Schlüssel, keine Inhalte Dritter in 
 
 ### Summary (English)
 
-Three small tools: an invoice OCR pipeline with a dashboard (Python, Tesseract, FastAPI,
+Three small tools an invoice OCR pipeline with a dashboard (Python, Tesseract, FastAPI,
 SQLite), a betting-odds scanner backend (FastAPI, SQLite, vanilla JS) and a Playwright E2E suite
 that tests the scanner. Measured results, tests and limitations are stated in each README.
+A fourth project, [Reportofon](https://github.com/charitonjrobert/reportofon), is published as a
+product page with installable APK (React Native + Whisper, source private).
+
 Proprietary license, no secrets in the repository. Contact: charitonjrobert@gmail.com
