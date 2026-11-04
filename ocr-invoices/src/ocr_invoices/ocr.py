@@ -51,12 +51,12 @@ def _configure() -> None:
     pytesseract.pytesseract.tesseract_cmd = _find_tesseract()
 
 
-def _pdf_pages(path: Path) -> list[Image.Image]:
+def _pdf_pages(path: Path, dpi: int = RENDER_DPI) -> list[Image.Image]:
     import pypdfium2 as pdfium
 
     pages: list[Image.Image] = []
     document = pdfium.PdfDocument(str(path))
-    scale = RENDER_DPI / 72
+    scale = dpi / 72
     try:
         for index in range(len(document)):
             bitmap = document[index].render(scale=scale)
@@ -66,19 +66,19 @@ def _pdf_pages(path: Path) -> list[Image.Image]:
     return pages
 
 
-def image_to_text(image: Image.Image) -> str:
+def image_to_text(image: Image.Image, lang: str = LANG) -> str:
     _configure()
     config = "--oem 3 --psm 6"
-    return pytesseract.image_to_string(image, lang=LANG, config=config)
+    return pytesseract.image_to_string(image, lang=lang, config=config)
 
 
-def file_to_text(path: str | Path) -> str:
+def file_to_text(path: str | Path, lang: str = LANG, dpi: int = RENDER_DPI) -> str:
     """Return the OCR text of a PDF (all pages) or of an image file."""
     target = Path(path)
     if not target.exists():
         raise FileNotFoundError(target)
     if target.suffix.lower() == ".pdf":
-        chunks = [image_to_text(page) for page in _pdf_pages(target)]
+        chunks = [image_to_text(page, lang=lang) for page in _pdf_pages(target, dpi=dpi)]
         return "\n".join(chunks)
     with Image.open(target) as image:
-        return image_to_text(image.convert("RGB"))
+        return image_to_text(image.convert("RGB"), lang=lang)

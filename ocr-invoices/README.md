@@ -16,6 +16,31 @@ Built to replace manual typing in a small business — no cloud, no account, no 
 **21/21 fields correct (100%).** Caveat: synthetic, clean renders — real scans with skew,
 stamps or folds will score lower. Numbers are reproducible with `tools/make_samples.py`.
 
+## Dashboard
+
+There is also a local browser UI, because typing `scan`/`list`/`export` is not how a
+bookkeeper wants to work:
+
+![Dashboard](docs/dashboard.png)
+
+```bash
+set PYTHONPATH=src
+.venv/Scripts/python -m ocr_invoices.web
+# http://127.0.0.1:8020
+```
+
+What you can do without the terminal:
+
+- upload a PDF or image and scan it;
+- click any cell to correct a wrong value (missing fields are highlighted);
+- open the original document next to the row;
+- delete a row in two steps (no accidental clicks);
+- export the whole table as CSV;
+- change OCR options: language (`deu+eng` / `deu` / `eng`), DPI (150/300/400),
+  Tesseract path, keep-or-drop the original file.
+
+The CLI is unchanged: `scan`, `list`, `export` still work exactly as before.
+
 ## What it does
 
 - OCR a PDF (all pages) or an image with Tesseract, German + English.

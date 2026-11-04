@@ -7,13 +7,13 @@ and states its measured result and its limits.
 
 | Project | Problem | What it proves | Stack |
 |---|---|---|---|
-| [ocr-invoices](ocr-invoices/) | Invoices arrive as PDFs and get typed by hand | OCR pipeline, data modelling, testing | Python, Tesseract, SQLite |
+| [ocr-invoices](ocr-invoices/) | Invoices arrive as PDFs and get typed by hand | OCR pipeline, dashboard UI, data modelling, testing | Python, Tesseract, FastAPI, SQLite |
 | [sportsbet-scanner](sportsbet-scanner/) | Comparing bookmaker odds by hand is slow and error-prone | Backend design, REST integration, caching, business rules | FastAPI, SQLite, vanilla JS |
 | [e2e-tests](e2e-tests/) | Nobody notices when a feature breaks until a user does | Test automation, Page Object, CI | Playwright, pytest |
 
 ## Measured results
 
-- **ocr-invoices**: 21/21 fields extracted correctly on 3 synthetic German invoices (7 fields × 3 documents). Missing fields stay empty; the tool never guesses.
+- **ocr-invoices**: 21/21 fields extracted correctly on 3 synthetic German invoices (7 fields × 3 documents). Missing fields stay empty; the tool never guesses. 13 tests green.
 - **sportsbet-scanner**: runs locally with `config.example.json`, no keys required to start; value-bet and arbitrage logic covered by its module tests.
 - **e2e-tests**: 6 tests green in 2.8 s against the real app, fresh database, real HTTP — found one startup bug.
 

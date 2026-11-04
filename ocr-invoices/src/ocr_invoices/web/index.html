@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OCR Invoices</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="bar">
+  <div class="brand">
+    <span class="dot"></span>
+    <h1>OCR Invoices</h1>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<main>
+  <section class="toolbar">
+    <label class="button primary">
+      Datei scannen
+      <input type="file" id="file" accept=".pdf,.png,.jpg,.jpeg,.tif,.tiff" hidden>
+    </label>
+    <a class="button" href="/api/export.csv">CSV exportieren</a>
+    <button class="button" id="toggle-settings" aria-expanded="false">Einstellungen</button>
+    <span class="hint" id="hint">Klick auf eine Zelle, um sie zu korrigieren.</span>
+  </section>
+
+  <section class="settings" id="settings" hidden>
+    <h2>OCR-Optionen</h2>
+    <div class="grid">
+      <label>Sprache
+        <select id="opt-lang">
+          <option value="deu+eng">Deutsch + English</option>
+          <option value="deu">Deutsch</option>
+          <option value="eng">English</option>
+        </select>
+      </label>
+      <label>DPI
+        <select id="opt-dpi">
+          <option value="150">150 (schnell)</option>
+          <option value="300">300 (Standard)</option>
+          <option value="400">400 (genau)</option>
+        </select>
+      </label>
+      <label>Tesseract-Pfad
+        <input id="opt-cmd" type="text" placeholder="auto (vendor/tesseract)">
+      </label>
+      <label class="check">
+        <input id="opt-keep" type="checkbox"> Originaldatei behalten
+      </label>
+    </div>
+    <button class="button primary" id="save-settings">Speichern</button>
+  </section>
+
+  <section class="panel">
+    <table id="table">
+      <thead>
+        <tr>
+          <th>Lieferant</th><th>Datum</th><th>Nummer</th>
+          <th class="num">Netto</th><th class="num">MwSt</th><th class="num">Brutto</th>
+          <th>Währung</th><th class="act">Aktionen</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="empty" id="empty" hidden>
+      <p>Noch keine Rechnungen.</p>
+      <p class="muted">Lade eine PDF oder ein Bild hoch, um zu starten.</p>
+    </div>
+  </section>
+  <div class="error" id="error" hidden></div>
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
