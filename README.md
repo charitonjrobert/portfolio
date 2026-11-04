@@ -62,6 +62,11 @@ python -m uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8010
 - Cover the access gate with a second app instance that has a key set.
 - Add a visual regression check (screenshot diff) once the dashboard layout stabilises.
 
+## License
+
+All rights reserved. The code is published for viewing and evaluation; reuse requires written
+permission. Third-party dependencies and their licenses are listed in [NOTICE.md](NOTICE.md).
+
 ## Note
 
 Built with AI assistance (generation, review, test scaffolding), designed, run and verified by me.
