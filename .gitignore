@@ -21,7 +21,7 @@ build/
 *.exe
 *.zip
 *.7z
-data/*
+data/**
 !data/.gitkeep
 media/
 out_*.json
