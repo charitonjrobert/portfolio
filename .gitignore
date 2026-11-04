@@ -21,7 +21,6 @@ build/
 *.exe
 *.zip
 *.7z
-data/**
 !data/.gitkeep
 media/
 out_*.json
@@ -30,3 +29,7 @@ vendor/
 test-results/
 playwright-report/
 .git-credentials
+ocr-invoices/data/*
+!ocr-invoices/data/.gitkeep
+e2e-tests/test-results/
+ocr-invoices/docs/*.tmp
